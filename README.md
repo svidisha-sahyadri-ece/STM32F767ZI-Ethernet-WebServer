@@ -63,41 +63,57 @@ The project covers the complete workflow from Ethernet configuration to serving 
 ## Project Workflow
 
 ```
-Browser
-        │
-HTTP Request
-        │
-Router
-        │
-STM32F767ZI
-        │
-LwIP Stack
-        │
-HTTP Server
-        │
-CGI Handler
-        │
-GPIO
-        │
-LED Control
+                User
+                 │
+                 ▼
+        Web Browser (HTTP)
+                 │
+        HTTP GET Request
+                 │
+                 ▼
+         Local Router / LAN
+                 │
+                 ▼
+     STM32F767ZI Nucleo-144
+                 │
+        Ethernet (LAN8742 PHY)
+                 │
+                 ▼
+         LwIP TCP/IP Stack
+                 │
+                 ▼
+        Embedded HTTP Server
+                 │
+                 ▼
+        CGI Request Handler
+                 │
+                 ▼
+      STM32 HAL GPIO Driver
+                 │
+                 ▼
+      Onboard LEDs (PB0, PB7, PB14)
 ```
 
 ---
 
 <details>
 
-<summary>Task 1 - STM32CubeIDE Project Creation</summary>
+<summary><b>1. Creating the STM32CubeIDE Project</b></summary>
 
-## Step 1 - Create a New STM32 Project
+## Project Initialization
 
-- Open STM32CubeIDE
-- Create a new STM32 Project
-- Select **STM32F767ZI Nucleo-144**
-- Finish project creation
+The project was created using **STM32CubeIDE** by selecting the **STM32F767ZI Nucleo-144** development board.
 
-### Project Screenshot
+STM32CubeMX was then used to configure the peripherals and automatically generate the initialization code.
 
-(Add Screenshot)
+### Steps
+
+1. Open STM32CubeIDE.
+2. Select **File → New STM32 Project**.
+3. Choose **STM32F767ZI Nucleo-144**.
+4. Create the project.
+5. Save the `.ioc` file.
+6. Generate the initialization code.
 
 </details>
 
@@ -105,16 +121,11 @@ LED Control
 
 <details>
 
-<summary>Task 2 - Ethernet Configuration</summary>
+<summary><b>2. Configuring the Ethernet Peripheral</b></summary>
 
-## Configure Ethernet Peripheral
+The Ethernet peripheral was configured in **RMII Mode** to enable communication through the onboard **LAN8742 Ethernet PHY**.
 
-Enable
-
-- ETH Peripheral
-- RMII Mode
-
-Configure Ethernet Pins
+The following Ethernet interface pins were configured automatically by STM32CubeMX.
 
 | Pin | Function |
 |------|----------|
@@ -128,33 +139,9 @@ Configure Ethernet Pins
 | PG13 | TXD0 |
 | PB13 | TXD1 |
 
-### CubeMX Screenshot
+### Ethernet Configuration
 
-(Add Screenshot)
-
-</details>
-
----
-
-<details>
-
-<summary>Task 3 - LwIP Middleware Configuration</summary>
-
-Enable
-
-- LwIP Middleware
-- LAN8742 PHY
-- Static IP Address
-
-Configure
-
-- IP Address
-- Gateway
-- Subnet Mask
-
-### Screenshot
-
-(Add Screenshot)
+![Ethernet Configuration](Images/01_ethernet_configuration.png)
 
 </details>
 
@@ -162,38 +149,29 @@ Configure
 
 <details>
 
-<summary>Task 4 - HTTP Server Configuration</summary>
+<summary><b>3. Configuring the LwIP TCP/IP Stack</b></summary>
 
-Enable
+The **LwIP middleware** was enabled to provide TCP/IP networking support.
 
-- HTTP Server
-- CGI Support
+The onboard **LAN8742 PHY** was selected as the Ethernet driver.
 
-The HTTP server allows the STM32 board to host web pages accessible through any browser connected to the same network.
+DHCP was disabled and a **Static IP Address** was assigned so that the embedded web server could always be accessed using the same IP address.
 
-### Screenshot
+### LwIP PHY Configuration
 
-(Add Screenshot)
+![LwIP Configuration](Images/02_lwip_phy.png)
 
-</details>
+### Static IP Configuration
 
----
+![Static IP](Images/03_static_ip.png)
 
-<details>
+### Network Parameters
 
-<summary>Task 5 - GPIO Configuration</summary>
-
-Configure the onboard LEDs as GPIO Outputs.
-
-| GPIO | LED |
-|------|-----|
-| PB0 | Green |
-| PB7 | Blue |
-| PB14 | Red |
-
-### Screenshot
-
-(Add Screenshot)
+| Parameter | Value |
+|------------|-------|
+| IP Address | 192.168.0.130 |
+| Subnet Mask | 255.255.255.0 |
+| Gateway | 192.168.0.1 |
 
 </details>
 
@@ -201,20 +179,57 @@ Configure the onboard LEDs as GPIO Outputs.
 
 <details>
 
-<summary>Task 6 - HTML User Interface</summary>
+<summary><b>4. Configuring the HTTP Server and GPIO</b></summary>
 
-A responsive HTML interface was created to allow users to control the onboard LEDs through a web browser.
+The **HTTP Server** was enabled within the LwIP middleware.
 
-Features
+CGI support was also enabled to allow the browser to send HTTP requests to the STM32 firmware.
+
+The onboard LEDs were configured as GPIO outputs.
+
+### HTTP Server & CGI Configuration
+
+![HTTP Server](Images/04_http_server.png)
+
+### GPIO Configuration
+
+![GPIO Configuration](Images/05_gpio_configuration.png)
+
+| GPIO Pin | LED |
+|-----------|-----|
+| PB0 | Green LED |
+| PB7 | Blue LED |
+| PB14 | Red LED |
+
+</details>
+
+---
+
+<details>
+
+<summary><b>5. Designing the Embedded Web Interface</b></summary>
+
+A lightweight HTML interface was created to allow users to remotely control the onboard LEDs through a web browser.
+
+The webpage provides independent ON/OFF controls for each LED.
+
+### Features
 
 - Green LED Control
 - Blue LED Control
 - Red LED Control
-- Submit Button
+- Browser-Based Interface
+- HTTP GET Request Submission
 
-### Webpage
+### LED Control Webpage
 
-(Add Screenshot)
+![LED Webpage](Images/07_webpage.png)
+
+### Custom 404 Error Page
+
+A custom error page was also created to improve the user experience whenever an invalid URL is accessed.
+
+![404 Page](Images/08_404_page.png)
 
 </details>
 
@@ -222,17 +237,35 @@ Features
 
 <details>
 
-<summary>Task 7 - CGI Implementation</summary>
+<summary><b>6. Implementing the CGI Handler</b></summary>
 
-The CGI Handler receives HTTP GET requests from the browser and updates the LED states.
+The Common Gateway Interface (CGI) processes HTTP GET requests received from the browser.
+
+Each parameter is parsed and mapped to the corresponding LED state.
 
 Example Request
 
-```
+```text
 LEDControl.cgi?green=ON&blue=OFF&red=ON
 ```
 
-The handler parses each parameter and controls the GPIO pins using STM32 HAL functions.
+The CGI handler updates the LED status using STM32 HAL GPIO functions.
+
+Workflow:
+
+```
+Browser
+      │
+HTTP GET Request
+      │
+HTTP Server
+      │
+CGI Handler
+      │
+HAL_GPIO_WritePin()
+      │
+LED Output
+```
 
 </details>
 
@@ -240,16 +273,31 @@ The handler parses each parameter and controls the GPIO pins using STM32 HAL fun
 
 <details>
 
-<summary>Task 8 - Embedded Filesystem Generation</summary>
+<summary><b>7. Generating the Embedded Filesystem</b></summary>
 
-The HTML pages were converted into embedded C arrays using the **makefsdata.pl** Perl script.
+The LwIP HTTP Server cannot directly serve HTML files.
+
+The **makefsdata.pl** Perl script converts the HTML pages into embedded C arrays.
 
 Generated Files
 
 - fsdata.c
 - fsdata_custom.c
 
-These files were added to the HTTP server directory so the web pages could be served directly from Flash memory.
+These generated source files were copied into
+
+```
+Middlewares
+└── Third_Party
+    └── LwIP
+        └── src
+            └── apps
+                └── http
+```
+
+### Embedded Filesystem
+
+![makefsdata](Images/06_makefsdata.png)
 
 </details>
 
@@ -257,36 +305,55 @@ These files were added to the HTTP server directory so the web pages could be se
 
 <details>
 
-<summary>Task 9 - Testing</summary>
+<summary><b>8. Building and Flashing the Firmware</b></summary>
 
 ### Build
 
-Compile the project using STM32CubeIDE.
+Compile the project using **STM32CubeIDE**.
+
+Ensure that there are no compilation errors before flashing.
 
 ### Flash
 
-Flash the firmware using ST-LINK.
+Program the firmware into the STM32F767ZI using the onboard **ST-LINK** debugger.
 
-### Connect
+### Hardware Setup
 
-- Connect STM32 to the router
-- Connect the PC to the same network
-
-Open
-
-```
-http://192.168.0.150
-```
-
-The browser loads the embedded webpage where the LEDs can be controlled remotely.
-
-### Output
-
-(Add Browser Screenshot)
-
-(Add Board Screenshot)
+- Connect the STM32 board to the router using an Ethernet cable.
+- Connect the PC to the same network.
+- Restart the STM32 board.
 
 </details>
+
+---
+
+<details>
+
+<summary><b>9. Testing the Embedded Web Server</b></summary>
+
+Open any web browser and enter
+
+```text
+http://192.168.0.130
+```
+
+The browser loads the embedded web interface served directly from the STM32 Flash memory.
+
+Select the required LED states and click **Apply Changes**.
+
+The CGI handler receives the request and updates the onboard LEDs immediately.
+
+### Browser Output
+
+![Browser Output](Images/07_webpage.png)
+
+### Hardware Output
+
+![STM32 Board](Images/09_board_output.jpg)
+
+</details>
+
+---
 
 ---
 
