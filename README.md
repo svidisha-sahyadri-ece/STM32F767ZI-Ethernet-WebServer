@@ -141,7 +141,7 @@ The following Ethernet interface pins were configured automatically by STM32Cube
 
 ### Ethernet Configuration
 
-![Ethernet Configuration](Images/01_ethernet_configuration.png)
+![Ethernet Configuration](Images/Ethernet_config.png)
 
 </details>
 
@@ -159,11 +159,11 @@ DHCP was disabled and a **Static IP Address** was assigned so that the embedded 
 
 ### LwIP PHY Configuration
 
-![LwIP Configuration](Images/02_lwip_phy.png)
+![LwIP Configuration](Images/lwip_phy.png)
 
 ### Static IP Configuration
 
-![Static IP](Images/03_static_ip.png)
+![Static IP](Images/static_ip.png)
 
 ### Network Parameters
 
@@ -189,11 +189,11 @@ The onboard LEDs were configured as GPIO outputs.
 
 ### HTTP Server & CGI Configuration
 
-![HTTP Server](Images/04_http_server.png)
+![HTTP Server](Images/http_server.png)
 
 ### GPIO Configuration
 
-![GPIO Configuration](Images/05_gpio_configuration.png)
+![GPIO Configuration](Images/gpio_config.png)
 
 | GPIO Pin | LED |
 |-----------|-----|
@@ -223,13 +223,13 @@ The webpage provides independent ON/OFF controls for each LED.
 
 ### LED Control Webpage
 
-![LED Webpage](Images/07_webpage.png)
+![LED Webpage](Images/webpage.png)
 
 ### Custom 404 Error Page
 
 A custom error page was also created to improve the user experience whenever an invalid URL is accessed.
 
-![404 Page](Images/08_404_page.png)
+![404 Page](Images/404_page.png)
 
 </details>
 
@@ -297,7 +297,7 @@ Middlewares
 
 ### Embedded Filesystem
 
-![makefsdata](Images/06_makefsdata.png)
+![makefsdata](Images/fsdata.png)
 
 </details>
 
@@ -345,11 +345,11 @@ The CGI handler receives the request and updates the onboard LEDs immediately.
 
 ### Browser Output
 
-![Browser Output](Images/07_webpage.png)
+![Browser Output](Images/webpage.png)
 
 ### Hardware Output
 
-![STM32 Board](Images/09_board_output.jpg)
+![STM32 Board](Images/Board_output.png)
 
 </details>
 
