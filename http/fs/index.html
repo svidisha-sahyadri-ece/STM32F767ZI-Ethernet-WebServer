@@ -1,93 +1,160 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-   <style>
-       body{
-        font-size:25px;
-        color: #065535;
-        background-size: cover;
-       }
-      .wd{
-          height: 100vh;
-          background: linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 0, 0, .1)), url('http://embetronicx.com/wp-content/uploads/2021/10/cropped-Logo-trans.png');
-          background-repeat: no-repeat;
-          padding: 100px;
-      }
-      .wd h1{
-          text-align: center;
-          font-weight: 300px;
-      }
-      .wd h4{
-          text-align: center;
-          color:#990000;
-          font-weight: 100px;
-      }
-      .wd h5{
-        text-align: center;
-        font-weight: 50px;
-        color:#840074;
-      }
-      p {
-        font-size: 1.5rem;
-        text-align: center;
-        font-weight: 500px;
-        color: #fff;
-        font-weight: 700;
-        margin-bottom: 1rem;
-      }
-      a {
-        padding: 15px 20px;
-        background: #52caee;
-        font-size: 1rem;
-        text-decoration: none;
-        color: #333333;
-        border-radius: .25rem;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.808)
-      }
-      form {
-        padding: 40px 20px;
-        text-align: center;
-      }
-      .green {
-        color: #13FF00;
-      }
-      .blue {
-        color: #002EFF;
-      }
-      .red {
-        color: #FF0000;
-      }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STM32 Ethernet Web Server</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#eef2f7;
+}
+
+.container{
+    max-width:650px;
+    margin:60px auto;
+    background:white;
+    border-radius:10px;
+    box-shadow:0px 5px 15px rgba(0,0,0,0.2);
+    padding:40px;
+    text-align:center;
+}
+
+h1{
+    color:#0d47a1;
+    margin-bottom:10px;
+}
+
+h3{
+    color:#555;
+    margin-top:0;
+    margin-bottom:30px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+td{
+    padding:15px;
+    font-size:18px;
+}
+
+select{
+    padding:8px;
+    font-size:16px;
+}
+
+button{
+    margin-top:30px;
+    padding:12px 30px;
+    font-size:18px;
+    background:#1976d2;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#125ca1;
+}
+
+.footer{
+    margin-top:30px;
+    color:#777;
+    font-size:14px;
+}
+
+.green{
+color:#00aa00;
+font-weight:bold;
+}
+
+.blue{
+color:#0066ff;
+font-weight:bold;
+}
+
+.red{
+color:#d50000;
+font-weight:bold;
+}
+
+</style>
+
 </head>
+
 <body>
-  <div class="wd">
-    <h1>EmbeTronicX</h1>
-    <h4> <i>---Embedded Tutorials Zone---</i></h4>
-    <h5> STM32F767Zi Ethernet HTTP Tutorial - Part 2 (LED Control using CGI)</h5>
-    <p><a href="https://www.embetronicx.com/">Visit EmbeTronicX</a></p>
-    <FORM ACTION="LEDControl.cgi" METHOD="GET">
-    <div class="green">
-      Green LED <SELECT NAME="green" SIZE=1>
-      <OPTION SELECTED>ON
-      <OPTION>OFF
-      </SELECT>
-    </div>
-    <div class="blue">
-      Blue LED <SELECT NAME="blue" SIZE=1>
-      <OPTION SELECTED>ON
-      <OPTION>OFF
-      </SELECT>
-    </div>
-    <div class="red">
-      Red LED <SELECT NAME="red" SIZE=1>
-      <OPTION SELECTED>ON
-      <OPTION>OFF
-      </SELECT>
-      <br>
-    </div>
-      <br>
-      <input value="Send" type="submit">
-    </div>
-    </FORM>
-  </div>
+
+<div class="container">
+
+<h1>STM32 Ethernet Web Server</h1>
+
+<h3>Browser-Based LED Control using LwIP HTTP Server & CGI</h3>
+
+<form action="LEDControl.cgi" method="GET">
+
+<table>
+
+<tr>
+<td class="green">Green LED</td>
+
+<td>
+<select name="green">
+<option selected>ON</option>
+<option>OFF</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td class="blue">Blue LED</td>
+
+<td>
+<select name="blue">
+<option selected>ON</option>
+<option>OFF</option>
+</select>
+</td>
+
+</tr>
+
+<tr>
+
+<td class="red">Red LED</td>
+
+<td>
+<select name="red">
+<option selected>ON</option>
+<option>OFF</option>
+</select>
+</td>
+
+</tr>
+
+</table>
+
+<button type="submit">
+Apply Changes
+</button>
+
+</form>
+
+<div class="footer">
+
+Developed using STM32F767ZI • LwIP • HTTP Server • CGI
+
+</div>
+
+</div>
+
 </body>
 </html>
