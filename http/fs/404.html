@@ -2,70 +2,123 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Error 404 page</title>
-  <style>
-    body {
-      margin: 0;
-      box-sizing: border-box;
-    }
 
-    .container {
-      height: 80vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      background: linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 0, 0, .1)), url('https://images.unsplash.com/photo-1595624871930-6e8537998592?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+<meta charset="UTF-8">
 
-    h1 {
-      font-size: 10rem;
-      color: #fff;
-      text-transform: uppercase;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    h2 {
-      font-size: 2rem;
-      color: #fff;
-      text-transform: uppercase;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
+<title>404 - Page Not Found</title>
 
-    p {
-      font-size: 1.5rem;
-      color: #fff;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
+<style>
 
-    a {
-      padding: 15px 20px;
-      background: #52caee;
-      font-size: 1rem;
-      text-decoration: none;
-      color: #333333;
-      border-radius: .25rem;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.808)
-    }
-  </style>
+body{
+
+margin:0;
+
+font-family:Arial,Helvetica,sans-serif;
+
+background:#f4f6f8;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+height:100vh;
+
+}
+
+.card{
+
+background:white;
+
+padding:50px;
+
+border-radius:10px;
+
+text-align:center;
+
+box-shadow:0px 5px 15px rgba(0,0,0,.2);
+
+max-width:500px;
+
+}
+
+h1{
+
+font-size:90px;
+
+color:#d32f2f;
+
+margin:0;
+
+}
+
+h2{
+
+margin-top:10px;
+
+color:#333;
+
+}
+
+p{
+
+color:#666;
+
+font-size:18px;
+
+margin-bottom:30px;
+
+}
+
+a{
+
+background:#1976d2;
+
+color:white;
+
+padding:12px 25px;
+
+text-decoration:none;
+
+border-radius:5px;
+
+}
+
+a:hover{
+
+background:#0d47a1;
+
+}
+
+</style>
+
 </head>
 
 <body>
-  <div class="container">
-    <h1>404</h1>
-    <h2>Page not found</h2>
-    <p>The page you are looking for does not exist.</p>
-    <p><a href="https://www.embetronicx.com/">Visit EmbeTronicX</a></p>
-  </div>
+
+<div class="card">
+
+<h1>404</h1>
+
+<h2>Page Not Found</h2>
+
+<p>
+
+The requested webpage could not be found on the STM32 Embedded Web Server.
+
+</p>
+
+<a href="/index.html">
+
+Return to Home
+
+</a>
+
+</div>
+
 </body>
 
 </html>
